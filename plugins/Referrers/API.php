@@ -96,6 +96,7 @@ class API extends \Piwik\Plugin\API
 
         // get visits by referrer type
         $dataTable = $this->getDataTable(Archiver::REFERRER_TYPE_RECORD_NAME, $idSite, $period, $date, $segment);
+        $dataTable->disableFilter('Flatten');
 
         if ($typeReferrer !== false) // filter for a specific referrer type
         {
