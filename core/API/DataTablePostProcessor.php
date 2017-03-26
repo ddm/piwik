@@ -170,17 +170,14 @@ class DataTablePostProcessor
     public function applyFlattener($dataTable)
     {
         if (Common::getRequestVar('flat', '0', 'string', $this->request) == '1') {
-            $flattener = new Flattener($this->apiModule, $this->apiMethod, $this->request);
-            if (Common::getRequestVar('include_aggregate_rows', '0', 'string', $this->request) == '1') {
-                $flattener->includeAggregateRows();
-            }
-
             $recursiveLabelSeparator = ' - ';
             if ($this->report) {
                 $recursiveLabelSeparator = $this->report->getRecursiveLabelSeparator();
             }
 
-            $dataTable = $flattener->flatten($dataTable, $recursiveLabelSeparator);
+            $includeAggregateRows = Common::getRequestVar('include_aggregate_rows', '0', 'string', $this->request);
+
+            $dataTable->filter('Flatten', array($includeAggregateRows, $recursiveLabelSeparator, $this->apiModule, $this->apiMethod, $this->request));
         }
         return $dataTable;
     }
