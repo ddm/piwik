@@ -53,8 +53,7 @@ class Flatten extends BaseFilter
 
         $newTable = $flattener->flatten($table, $this->recursiveLabelSeparator);
 
-        // replace rows and metadata with those of the flattened datatable
+        // replace rows with those of the flattened datatable
         $table->setRows($newTable->getRows());
-        $table->setAllTableMetadata($newTable->getAllTableMetadata());
     }
 }
